@@ -1,13 +1,13 @@
 
 
 var firebaseConfig = {
-    apiKey: "AIzaSyA8TG1EUw3r6xbj4ChW0EjpfN3uB9Qz2n8",
-    authDomain: "bidding-63908.firebaseapp.com",
-    databaseURL: "https://bidding-63908.firebaseio.com",
-    projectId: "bidding-63908",
+    apiKey: "AIzaSyB8vrpYurJmhdHU9DQuEbEwsQ8Y1eBJRB0",
+    authDomain: "my-awesome-trains.firebaseapp.com",
+    databaseURL: "https://my-awesome-trains.firebaseio.com",
+    projectId: "my-awesome-trains",
     storageBucket: "",
-    messagingSenderId: "708267226320",
-    appId: "1:708267226320:web:5f285dd131f33c3b"
+    messagingSenderId: "575028153856",
+    appId: "1:575028153856:web:e6b556e2146efe25"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
