@@ -11,29 +11,29 @@
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
 
-    <title>Monthly Activity</title>
+    <title>Tricky Train Schedules!</title>
 </head>
 
 <body>
     <div class="container" style="width: 80%">
         <div class="jumbotron jumbotron-fluid" style="text-align: center" style="background: black">
             <div class="employeeList">
-                <h1 class="display-4">Employee Data Management </h1>
-                <h3>A Comprehensive Directory of Employee Billable Hours</h3>
+                <h1 class="display-4">What time is it? TRAIN TIME! </h1>
+                <h3>"I think I can I think I can!"</h3>
             </div>
         </div>
 
-        <h2 style="background:indigo">Current Employees</h2>
+        <h2 style="background:indigo">Current Train Schedules</h2>
         <table class="table">
             <thead>
                 <tr>
                     <!-- The scope attribute specifies that this is a header for a column -->
-                    <th scope="col">Employee Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col"> Months Worked </th>
-                    <th scope="col"> Monthly Rate </th>
-                    <th scope="col"> Total Billed </th>
+                    <th scope="col">Train Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Frequency</th>
+                    <th scope="col">Next Arrival</th>
+                    <th scope="col">Minutes Away</th>
+                    
                 </tr>
                
         </table>
@@ -42,21 +42,21 @@
 
             <form>
                 <div class="form-group">
-                    <h3 style="background:indigo">Add Employee</h3>
-                    <label for="exampleFormControlInput1">Employee Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="First Last">
+                    <h3 style="background:indigo">Add Train</h3>
+                    <label for="exampleFormControlInput1">Train Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="Train train train, train naaame">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Employee Role</label>
-                    <input type="role" class="form-control" id="role" placeholder="Role">
+                    <label for="exampleFormControlInput1">Destination</label>
+                    <input type="destination" class="form-control" id="destination" placeholder="Where it go?">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Start Date</label>
-                    <input type="date" class="form-control" id="start" placeholder="mm/dd/yyyy">
+                    <label for="exampleFormControlInput1">Frist Train Time (HHmm-Military Time)</label>
+                    <input type="time" class="form-control" id="time" placeholder="HHmm-Military Time">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Monthly Rate</label>
-                    <input type="rate" class="form-control" id="rate" placeholder="$">
+                    <label for="exampleFormControlInput1">Frequency</label>
+                    <input type="frequency" class="form-control" id="frequency" placeholder="Min">
                 </div>
                 <button type="button" class="btn btn-primary" id="submit-button" type="submit">Submit</button>
     </div>
