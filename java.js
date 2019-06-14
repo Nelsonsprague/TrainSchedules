@@ -61,12 +61,23 @@ console.log(frequency);
 console.log(nextArrival);
 console.log(minutesAway);
 console.log(dateAdded);
-  })
 
 
 
-  $("#full-train-list").append("<tr")
+$("#full-train-list").append("<tr>"+childSnapshot(trainName)+childSnapshot(destination)+childSnapshot(frequency)+childSnapshot(nextArrival+childSnapshot(minutesAway)+childSnapshot(dateAdded))
+  }, function(errorObject){
+    console.log("Errors Handled: "+errorObject.code);
+   
 
+})
+
+DataTransfer.ref().orderByChild("dateAdded").limitTOlast(1).on("child_added", function(snapshot){
+  $("#name").text(snapshot.val().trainName);
+  $("#destination").text(snapshot.val().destination);
+  $("#frequency").text(snapshot.val().frequency);
+  $("#next-arrival").text(snapshot.val().nextArrival);
+  $("#minutes-away").text(snapshot.val().minutesAway);
+})
   // function createRow(){
   //   var tRow = $("<tr>")
   //   var nameTd = $("#name-display").append(employeeName);
