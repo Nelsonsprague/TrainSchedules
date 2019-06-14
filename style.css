@@ -7,3 +7,7 @@ header{
 body{
     background-image: url(trainpic.jpg);
 }
+
+.container{
+    background-color: aqua;
+}
