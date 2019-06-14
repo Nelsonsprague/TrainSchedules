@@ -36,31 +36,70 @@ var firebaseConfig = {
 
   $("#submit-button").on("click", function(childSnapshot){
       event.preventDefault();
-      var employeeName = $("#name").val().trim();
-      var employeeRole = $("#role").val().trim();
-      var startDate = parseInt($("#start").val().trim());
-      var currentDate = new Date();
-      var payRate = parseInt($("#rate").val().trim());
+      var trainName = $("#name").val().trim();
+      var destination = $("#destination").val().trim();
+      var frequency = parseInt($("#frequency").val().trim());
+      var nextArrival = moment();
+      var minutesAway = parseInt($("#rate").val().trim());
       
-    //   database.ref().push({
-          
-    //   })
+      database.ref().push({
+          trainName: trainName,
+          destination: destination,
+          frequency: frequency,
+          nextArrival: nextArrival,
+          minutesAway: minutesAway,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+      })
 
       
   });
 
-//   database.ref().onchild{
+  database.ref().on("child_added", function(childSnapshot){
+console.log(trainName);
+console.log(destination);
+console.log(frequency);
+console.log(nextArrival);
+console.log(minutesAway);
+console.log(dateAdded);
+  })
 
-//   }
 
-  function createRow(){
-    var tRow = $("<tr>")
-    var nameTd = $("#name-display").append(employeeName);
-    var roleTd = $("<td>").text(employeeRole);
-    var startTd = $("<td>").text(startDate);
-    var monWorkedTd = $("<td>").text();
-    var monRateTd = $("<td>").text(payRate);
-    var totBilledTd = $("<td>").text();
-  }
 
-  $("#employeeList").append("")
+  $("#full-train-list").append("<tr")
+
+  // function createRow(){
+  //   var tRow = $("<tr>")
+  //   var nameTd = $("#name-display").append(employeeName);
+  //   var roleTd = $("<td>").text(employeeRole);
+  //   var startTd = $("<td>").text(startDate);
+  //   var monWorkedTd = $("<td>").text();
+  //   var monRateTd = $("<td>").text(payRate);
+  //   var totBilledTd = $("<td>").text();
+  // }
+
+  // $("#employeeList").append("")
+
+  // creating train math
+
+  var tFrequency = 3;
+  var firstTime = "3:30";
+  // first train
+  var firstTimeCOnverted = moment(firstTime, "HH").subtract(1, "years");
+  console.log(firstTimeCOnverted)
+
+  // Current Time
+  var currentTime = moment();
+
+  //Difference between the times 
+  var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
+
+  console.log(diffTime)
+
+  var tRemainder = diffTime % tFrequency;
+  console.log(tRemainder);
+
+  var tMinutesTillTrain = tFrequency - tRemainder;
+  console.log(tMinutesTillTrain)
+
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  console.log(moment(nextTrain).format("HH"));
