@@ -38,9 +38,30 @@ var firebaseConfig = {
       event.preventDefault();
       var trainName = $("#name").val().trim();
       var destination = $("#destination").val().trim();
-      var frequency = parseInt($("#frequency").val().trim());
-      var nextArrival = moment();
+      var tFrequency = parseInt($("#frequency").val().trim());
+    
       var minutesAway = parseInt($("#rate").val().trim());
+      var firstTime = $("#firstTrain").val().trim();
+
+      var firstTimeCOnverted = moment(firstTime, "HH").subtract(1, "years");
+  console.log(firstTimeCOnverted)
+
+  // Current Time
+  var currentTime = moment();
+
+  //Difference between the times 
+  var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
+
+  console.log(diffTime)
+
+  var tRemainder = diffTime % tFrequency;
+  console.log(tRemainder);
+
+  var tMinutesTillTrain = tFrequency - tRemainder;
+  console.log(tMinutesTillTrain)
+
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  console.log(moment(nextTrain).format("HH"));
       
       database.ref().push({
           trainName: trainName,
@@ -92,25 +113,4 @@ DataTransfer.ref().orderByChild("dateAdded").limitTOlast(1).on("child_added", fu
 
   // creating train math
 
-  var tFrequency = 3;
-  var firstTime = "3:30";
-  // first train
-  var firstTimeCOnverted = moment(firstTime, "HH").subtract(1, "years");
-  console.log(firstTimeCOnverted)
-
-  // Current Time
-  var currentTime = moment();
-
-  //Difference between the times 
-  var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
-
-  console.log(diffTime)
-
-  var tRemainder = diffTime % tFrequency;
-  console.log(tRemainder);
-
-  var tMinutesTillTrain = tFrequency - tRemainder;
-  console.log(tMinutesTillTrain)
-
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  console.log(moment(nextTrain).format("HH"));
+ 
