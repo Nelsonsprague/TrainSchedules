@@ -5,7 +5,7 @@ var firebaseConfig = {
     authDomain: "my-awesome-trains.firebaseapp.com",
     databaseURL: "https://my-awesome-trains.firebaseio.com",
     projectId: "my-awesome-trains",
-    storageBucket: "",
+    storageBucket: "my-awesome-trains.appspot.com",
     messagingSenderId: "575028153856",
     appId: "1:575028153856:web:e6b556e2146efe25"
   };
@@ -39,10 +39,7 @@ var firebaseConfig = {
       var trainName = $("#name").val().trim();
       var destination = $("#destination").val().trim();
       var tFrequency = parseInt($("#frequency").val().trim());
-    
-      var minutesAway = parseInt($("#rate").val().trim());
-      var firstTime = $("#firstTrain").val().trim();
-
+      var firstTime = parseInt($("#firstTrain").val().trim());
       var firstTimeCOnverted = moment(firstTime, "HH").subtract(1, "years");
   console.log(firstTimeCOnverted)
 
@@ -52,21 +49,17 @@ var firebaseConfig = {
   //Difference between the times 
   var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
 
-  console.log(diffTime)
-
   var tRemainder = diffTime % tFrequency;
-  console.log(tRemainder);
 
-  var tMinutesTillTrain = tFrequency - tRemainder;
-  console.log(tMinutesTillTrain)
+  var nextArrival = tFrequency - tRemainder;
 
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  console.log(moment(nextTrain).format("HH"));
+  var minutesAway = moment().add(nextArrival, "minutes").format("mm");
+ 
       
       database.ref().push({
           trainName: trainName,
           destination: destination,
-          frequency: frequency,
+          tFrequency: tFrequency,
           nextArrival: nextArrival,
           minutesAway: minutesAway,
           dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -76,16 +69,12 @@ var firebaseConfig = {
   });
 
   database.ref().on("child_added", function(childSnapshot){
-console.log(trainName);
-console.log(destination);
-console.log(frequency);
-console.log(nextArrival);
-console.log(minutesAway);
-console.log(dateAdded);
 
 
 
-$("#full-train-list").append("<tr>"+childSnapshot(trainName)+childSnapshot(destination)+childSnapshot(frequency)+childSnapshot(nextArrival+childSnapshot(minutesAway)+childSnapshot(dateAdded))
+
+
+$("#full-train-list").append("<tr>"+childSnapshot(trainName)+"<td>"+childSnapshot(destination)+childSnapshot(frequency)+childSnapshot(nextArrival+childSnapshot(minutesAway)+childSnapshot(dateAdded))
   }, function(errorObject){
     console.log("Errors Handled: "+errorObject.code);
    
@@ -111,6 +100,3 @@ DataTransfer.ref().orderByChild("dateAdded").limitTOlast(1).on("child_added", fu
 
   // $("#employeeList").append("")
 
-  // creating train math
-
- 
