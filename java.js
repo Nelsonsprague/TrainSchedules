@@ -32,7 +32,27 @@ var firebaseConfig = {
       var destination = $("#destination").val().trim();
       var tFrequency = parseInt($("#frequency").val().trim());
       var firstTime = parseInt($("#firstTrain").val().trim());
-      var firstTimeCOnverted = moment(firstTime, "HH").subtract(1, "years");
+      
+ 
+      
+      database.ref().push({
+          trainName: trainName,
+          destination: destination,
+          tFrequency: tFrequency,
+          firstTime: firstTime,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+      })
+
+      
+  });
+
+  database.ref().on("child_added", function(childSnapshot){
+var trainNameDB = childSnapshot.val().trainName
+var firstTimeDB = childSnapshot.val().firstTime
+var tFrequencyDB = childSnapshot.val().tFrequency
+var destinationDB = childSnapshot.val().destination
+
+    var firstTimeCOnverted = moment(firstTimeDB, "HH").subtract(1, "years");
   console.log(firstTimeCOnverted)
 
   // Current Time
@@ -41,33 +61,20 @@ var firebaseConfig = {
   //Difference between the times 
   var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
 
-  var tRemainder = diffTime % tFrequency;
+  var tRemainder = diffTime % tFrequencyDB;
 
-  var nextArrival = tFrequency - tRemainder;
+  var nextArrival = tFrequencyDB - tRemainder;
 
   var minutesAway = moment().add(nextArrival, "minutes").format("mm");
- 
-      
-      database.ref().push({
-          trainName: trainName,
-          destination: destination,
-          tFrequency: tFrequency,
-          nextArrival: nextArrival,
-          minutesAway: minutesAway,
-          dateAdded: firebase.database.ServerValue.TIMESTAMP
-      })
-
-      
-  });
-
-  database.ref().on("child_added", function(childSnapshot){
     var tRow = $("<tr>")
-    var nameTd = $("<td>").append(trainName);
-    var destinationTd = $("<td>").text(destination);
-    var frequencyTd = $("<td>").text(frequency);
-    var nextArrivalTd = $("<td>").text(nextArrival);
-    var minAwayTd = $("<td>").text(minutesAway);
+    var nameTd = $("<td class='col-md'>").append(trainNameDB);
+    var destinationTd = $("<td class='col-md'>>").text(destinationDB);
+    var frequencyTd = $("<td class='col-md'>>").text(tFrequencyDB);
+    var nextArrivalTd = $("<td class='col-md'>>").text(nextArrival);
+    var minAwayTd = $("<tdclass='col-md'>>").text(minutesAway);
 
+    tRow.append(nameTd, destinationTd, frequencyTd, nextArrivalTd, minAwayTd)
+$("#full-train-list").append(tRow)
 // $("#full-train-list").append("<tr>"+childSnapshot(trainName)+"<td>"+childSnapshot(destination)+childSnapshot(frequency)+childSnapshot(nextArrival+childSnapshot(minutesAway)+childSnapshot(dateAdded))
   },
    function(errorObject){
