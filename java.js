@@ -23,74 +23,55 @@ var firebaseConfig = {
 
   database.ref().on("value", function(snapshot){
 
-
   })
 
   $("#submit-button").on("click", function(childSnapshot){
       event.preventDefault();
       var trainName = $("#name").val().trim();
       var destination = $("#destination").val().trim();
-      var tFrequency = parseInt($("#frequency").val().trim());
-      var firstTime = parseInt($("#firstTrain").val().trim());
-      
- 
+      var tFrequency = $("#frequency").val().trim();
+      var firstTime = $("#firstTrain").val().trim();
       
       database.ref().push({
-          trainName: trainName,
-          destination: destination,
-          tFrequency: tFrequency,
-          firstTime: firstTime,
-          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        trainName: trainName,
+        destination: destination,
+        tFrequency: tFrequency,
+        firstTime: firstTime,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
       })
-
       
+      
+      console.log(tFrequency)
+      console.log(firstTime)
+ $("#name").val("");
   });
 
   database.ref().on("child_added", function(childSnapshot){
-var trainNameDB = childSnapshot.val().trainName
-var firstTimeDB = childSnapshot.val().firstTime
-var tFrequencyDB = childSnapshot.val().tFrequency
-var destinationDB = childSnapshot.val().destination
+    var trainNameDB = childSnapshot.val().trainName;
+    var firstTimeDB = childSnapshot.val().firstTime;
+    var tFrequencyDB = childSnapshot.val().tFrequency;
+    var destinationDB = childSnapshot.val().destination;
 
-    var firstTimeCOnverted = moment(firstTimeDB, "HH").subtract(1, "years");
-  console.log(firstTimeCOnverted)
+    var firstTimeCOnverted = moment(firstTimeDB, "HH:mm").subtract(1, "day");
 
-  // Current Time
-  var currentTime = moment();
-
-  //Difference between the times 
-  var diffTime = moment().diff(moment(firstTimeCOnverted),'minutes');
-
-  var tRemainder = diffTime % tFrequencyDB;
-
-  var nextArrival = tFrequencyDB - tRemainder;
-
-  var minutesAway = moment().add(nextArrival, "minutes").format("mm");
+    var currentTime = moment(); 
+    var diffTime = moment().diff(moment(firstTimeCOnverted),"minutes");
+    var tRemainder = diffTime % tFrequencyDB;
+    var minutesAway = tFrequencyDB - tRemainder;
+    var nextArrival= moment().add(minutesAway, "minutes").format("HH:mm");
+    console.log(minutesAway)
+    console.log("next arrival: ", nextArrival)
     var tRow = $("<tr>")
-    var nameTd = $("<td class='col-md'>").append(trainNameDB);
-    var destinationTd = $("<td class='col-md'>>").text(destinationDB);
-    var frequencyTd = $("<td class='col-md'>>").text(tFrequencyDB);
-    var nextArrivalTd = $("<td class='col-md'>>").text(nextArrival);
-    var minAwayTd = $("<tdclass='col-md'>>").text(minutesAway);
+    var nameTd = $("<td>").text(trainNameDB);
+    var destinationTd = $("<td>").text(destinationDB);
+    var frequencyTd = $("<td>").text(tFrequencyDB);
+    var nextArrivalTd = $("<td>").text(nextArrival);
+    console.log(nextArrival)
+    var minAwayTd = $("<td>").text(minutesAway + "minutes Away");
 
     tRow.append(nameTd, destinationTd, frequencyTd, nextArrivalTd, minAwayTd)
 $("#full-train-list").append(tRow)
-// $("#full-train-list").append("<tr>"+childSnapshot(trainName)+"<td>"+childSnapshot(destination)+childSnapshot(frequency)+childSnapshot(nextArrival+childSnapshot(minutesAway)+childSnapshot(dateAdded))
-  },
+},
    function(errorObject){
     console.log("Errors Handled: "+errorObject.code);
 })
-
-// DataTransfer.ref().orderByChild("dateAdded").limitTOlast(1).on("child_added", function(snapshot){
-//   $("#name").text(snapshot.val().trainName);
-//   $("#destination").text(snapshot.val().destination);
-//   $("#frequency").text(snapshot.val().frequency);
-//   $("#next-arrival").text(snapshot.val().nextArrival);
-//   $("#minutes-away").text(snapshot.val().minutesAway);
-// })
-  function createRow(){
-
-  }
-
-  // $("#employeeList").append("")
-

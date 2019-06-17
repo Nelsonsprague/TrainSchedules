@@ -11,3 +11,7 @@ body{
 .container{
     background-color: aqua;
 }
+
+tr{
+    text-align: center;
+}
