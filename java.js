@@ -44,6 +44,9 @@ var firebaseConfig = {
       console.log(tFrequency)
       console.log(firstTime)
  $("#name").val("");
+ $("#destination").val("");
+ $("#frequency").val("");
+ $("#firstTrain").val("");
   });
 
   database.ref().on("child_added", function(childSnapshot){
