@@ -67,7 +67,7 @@ var firebaseConfig = {
     var frequencyTd = $("<td>").text(tFrequencyDB);
     var nextArrivalTd = $("<td>").text(nextArrival);
     console.log(nextArrival)
-    var minAwayTd = $("<td>").text(minutesAway + "minutes Away");
+    var minAwayTd = $("<td>").text(minutesAway + " minutes Away");
 
     tRow.append(nameTd, destinationTd, frequencyTd, nextArrivalTd, minAwayTd)
 $("#full-train-list").append(tRow)

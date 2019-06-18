@@ -6,6 +6,8 @@ h3{
     background-color: blue;
     color:orangered;
     text-align: center;
+    font-family: fantasy;
+    padding: 20px;
 }
 .jumbotron{
     background-color: blue;
@@ -21,4 +23,17 @@ body{
 
 tr{
     text-align: center;
+}
+
+#full-train-list,
+th,td{
+text-align: center;
+color: aliceblue;
+margin-left: auto;
+margin-right: auto;
+padding: 40px;
+border-collapse: collapse;
+border: 1px solid gray;
+margin-bottom: 20px;
+
 }
