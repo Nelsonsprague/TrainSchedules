@@ -1,7 +1,14 @@
 
 
-header{
-    color: white;
+h1,
+h2,
+h3{
+    background-color: blue;
+    color:orangered;
+    text-align: center;
+}
+.jumbotron{
+    background-color: blue;
 }
 
 body{
@@ -9,7 +16,7 @@ body{
 }
 
 .container{
-    background-color: aqua;
+    background-color: orangered;
 }
 
 tr{
